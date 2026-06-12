@@ -6,15 +6,17 @@ const App = {
   launchGame(game) {
     this.showScreen('screen-' + game);
     this.current = game;
-    if (game === 'typer')   TyperGame.init();
-    if (game === 'bugbash') BugBash.init();
-    if (game === 'runner')  RunnerGame.init();
+    if (game === 'typer')       TyperGame.init();
+    if (game === 'bugbash')     BugBash.init();
+    if (game === 'runner')      RunnerGame.init();
+    if (game === 'pgspelunker') PGSpelunker.init();
   },
 
   goHome() {
     TyperGame.stop();
     BugBash.stop();
     RunnerGame.stop();
+    PGSpelunker.stop();
     this.showScreen('screen-hub');
     this.current = 'hub';
     this.refreshHubStats();
@@ -42,12 +44,15 @@ const App = {
     const wpm  = this.getScore('wpm');
     const bugs = this.getScore('bugs');
     const run  = this.getScore('run');
+    const pg   = this.getScore('pg');
     set('hub-wpm',  wpm  || '—');
     set('hub-bugs', bugs || '—');
     set('hub-run',  run  ? run + 'm' : '—');
+    set('hub-pg',   pg   || '—');
     set('card-wpm',  wpm  || '—');
     set('card-bugs', bugs || '—');
     set('card-run',  run  ? run + 'm' : '—');
+    set('card-pg',   pg   || '—');
   },
 };
 

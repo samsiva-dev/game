@@ -46,6 +46,13 @@
             <div class="stat-value" id="hub-run">—</div>
           </div>
         </div>
+        <div class="stat-item">
+          <span class="stat-icon">🐘</span>
+          <div class="stat-body">
+            <div class="stat-label">PG Score</div>
+            <div class="stat-value" id="hub-pg">—</div>
+          </div>
+        </div>
       </div>
 
       <div class="games-grid">
@@ -90,6 +97,22 @@
           </div>
           <div class="card-footer">
             <span class="card-best">Best: <strong id="card-run">—</strong> m</span>
+            <span class="card-cta">Play →</span>
+          </div>
+          <div class="card-glow"></div>
+        </article>
+
+        <article class="game-card" data-accent="purple" onclick="App.launchGame('pgspelunker')">
+          <div class="card-icon">🐘</div>
+          <h2 class="card-title">PG Source Spelunker</h2>
+          <p class="card-desc">Identify which file in PostgreSQL's source tree defines a given function or symbol</p>
+          <div class="card-tags">
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Trivia</span>
+            <span class="tag">Source</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-best">Best: <strong id="card-pg">—</strong> pts</span>
             <span class="card-cta">Play →</span>
           </div>
           <div class="card-glow"></div>
@@ -157,9 +180,26 @@
 
   </div>
 
+    <!-- ─── PG SOURCE SPELUNKER SCREEN ─── -->
+    <section id="screen-pgspelunker" class="screen">
+      <div class="game-header">
+        <button class="back-btn" onclick="App.goHome()">← Hub</button>
+        <span class="game-header-title">🐘 PG Source Spelunker</span>
+        <div class="hud-stats">
+          <div class="hud-stat"><span class="hud-label">SCORE</span><span class="hud-val" id="spel-score">0</span></div>
+          <div class="hud-stat"><span class="hud-label">STREAK</span><span class="hud-val" id="spel-streak">×1</span></div>
+          <div class="hud-stat"><span class="hud-label">LIVES</span><span class="hud-val" id="spel-lives">♥♥♥</span></div>
+        </div>
+      </div>
+      <div id="pgspelunker-wrap"></div>
+    </section>
+
+  </div>
+
   <script src="js/app.js"></script>
   <script src="js/games/typer.js"></script>
   <script src="js/games/bugbash.js"></script>
   <script src="js/games/runner.js"></script>
+  <script src="js/games/pgspelunker.js"></script>
 </body>
 </html>
