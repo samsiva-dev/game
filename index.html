@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevArcade — Games for Developers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <div id="app">
+
+    <!-- ─── HUB SCREEN ─── -->
+    <section id="screen-hub" class="screen active">
+      <header class="hub-header">
+        <div class="logo">
+          <span class="logo-bracket">{</span>
+          <span class="logo-text">DevArcade</span>
+          <span class="logo-bracket">}</span>
+        </div>
+        <p class="tagline">// Games for Developers, By Developers</p>
+      </header>
+
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-icon">⌨️</span>
+          <div class="stat-body">
+            <div class="stat-label">Best WPM</div>
+            <div class="stat-value" id="hub-wpm">—</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🐛</span>
+          <div class="stat-body">
+            <div class="stat-label">Bugs Crushed</div>
+            <div class="stat-value" id="hub-bugs">—</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🏃</span>
+          <div class="stat-body">
+            <div class="stat-label">Best Run</div>
+            <div class="stat-value" id="hub-run">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="games-grid">
+        <article class="game-card" data-accent="cyan" onclick="App.launchGame('typer')">
+          <div class="card-icon">⌨️</div>
+          <h2 class="card-title">TypeScript Speedrun</h2>
+          <p class="card-desc">Race against the clock typing real code snippets in JS, Python, and Rust</p>
+          <div class="card-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">Python</span>
+            <span class="tag">Rust</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-best">Best: <strong id="card-wpm">—</strong> WPM</span>
+            <span class="card-cta">Play →</span>
+          </div>
+          <div class="card-glow"></div>
+        </article>
+
+        <article class="game-card" data-accent="red" onclick="App.launchGame('bugbash')">
+          <div class="card-icon">🐛</div>
+          <h2 class="card-title">Bug Squasher</h2>
+          <p class="card-desc">Squash bugs before they escalate to CRITICAL and take down production</p>
+          <div class="card-tags">
+            <span class="tag">Reflex</span>
+            <span class="tag">Strategy</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-best">Best: <strong id="card-bugs">—</strong> pts</span>
+            <span class="card-cta">Play →</span>
+          </div>
+          <div class="card-glow"></div>
+        </article>
+
+        <article class="game-card" data-accent="green" onclick="App.launchGame('runner')">
+          <div class="card-icon">🏃</div>
+          <h2 class="card-title">Dev Runner</h2>
+          <p class="card-desc">Dodge errors, duck under meetings, collect coffee — ship it!</p>
+          <div class="card-tags">
+            <span class="tag">Endless</span>
+            <span class="tag">Action</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-best">Best: <strong id="card-run">—</strong> m</span>
+            <span class="card-cta">Play →</span>
+          </div>
+          <div class="card-glow"></div>
+        </article>
+      </div>
+
+      <footer class="hub-footer">
+        <span>// Scores saved in localStorage</span>
+        <span>Made with ❤️ &amp; ☕ for devs</span>
+      </footer>
+    </section>
+
+    <!-- ─── TYPER SCREEN ─── -->
+    <section id="screen-typer" class="screen">
+      <div class="game-header">
+        <button class="back-btn" onclick="App.goHome()">← Hub</button>
+        <span class="game-header-title">⌨️ TypeScript Speedrun</span>
+        <div class="hud-stats">
+          <div class="hud-stat"><span class="hud-label">WPM</span><span class="hud-val" id="typer-wpm">0</span></div>
+          <div class="hud-stat"><span class="hud-label">ACC</span><span class="hud-val" id="typer-acc">100%</span></div>
+          <div class="hud-stat hud-timer"><span class="hud-label">TIME</span><span class="hud-val" id="typer-time">60</span></div>
+        </div>
+      </div>
+      <div id="typer-wrap"></div>
+    </section>
+
+    <!-- ─── BUG BASH SCREEN ─── -->
+    <section id="screen-bugbash" class="screen">
+      <div class="game-header">
+        <button class="back-btn" onclick="App.goHome()">← Hub</button>
+        <span class="game-header-title">🐛 Bug Squasher</span>
+        <div class="hud-stats">
+          <div class="hud-stat"><span class="hud-label">SCORE</span><span class="hud-val" id="bugbash-score">0</span></div>
+          <div class="hud-stat"><span class="hud-label">COMBO</span><span class="hud-val" id="bugbash-combo">×1</span></div>
+          <div class="hud-stat hud-timer"><span class="hud-label">TIME</span><span class="hud-val" id="bugbash-time">60</span></div>
+        </div>
+      </div>
+      <div id="bugbash-wrap"></div>
+    </section>
+
+    <!-- ─── RUNNER SCREEN ─── -->
+    <section id="screen-runner" class="screen">
+      <div class="game-header">
+        <button class="back-btn" onclick="App.goHome()">← Hub</button>
+        <span class="game-header-title">🏃 Dev Runner</span>
+        <div class="hud-stats">
+          <div class="hud-stat"><span class="hud-label">DIST</span><span class="hud-val" id="runner-dist">0m</span></div>
+          <div class="hud-stat"><span class="hud-label">SPEED</span><span class="hud-val" id="runner-speed">1×</span></div>
+        </div>
+      </div>
+      <div id="runner-wrap">
+        <canvas id="runner-canvas"></canvas>
+        <div id="runner-overlay">
+          <div class="overlay-inner">
+            <h2 id="overlay-title">Dev Runner</h2>
+            <p id="overlay-subtitle">// Dodge errors · Collect coffee · Ship it!</p>
+            <div class="controls-hint">
+              <kbd>SPACE</kbd> / <kbd>↑</kbd> Jump &nbsp;&nbsp; <kbd>↓</kbd> Duck
+            </div>
+            <button class="btn-primary" id="runner-start-btn">▶ Start Game</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/games/typer.js"></script>
+  <script src="js/games/bugbash.js"></script>
+  <script src="js/games/runner.js"></script>
+</body>
+</html>
